@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5C2833">
+<title>Happy Girlfriend's Day, Coco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --backdrop: #7C4A52;
+  --backdrop-deep: #4A1E26;
+  --envelope: #E3C2B5;
+  --envelope-flap: #D6AC9C;
+  --paper: #FDF9F5;
+  --ink: #4A1E26;
+  --ink-soft: #8A6459;
+  --gold: #C5A069;
+  --gold-deep: #93713F;
+  --gold-light: #F3E0C0;
+  --heart-color: rgba(227, 194, 181, 0.4);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { overflow: hidden; scroll-behavior: smooth; }
+html.opened { overflow: auto; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--backdrop);
+  color: var(--ink);
+  min-height: 100vh;
+  min-height: 100svh;
+  line-height: 1.7;
+  transition: background 1.2s ease-in-out;
+  position: relative;
+}
+html.opened body { background: var(--paper); }
+button { font: inherit; }
+
+/* ===== Floating Hearts Background ===== */
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 2s ease 1s;
+}
+html.opened #particles { opacity: 1; }
+.heart {
+  position: absolute;
+  bottom: -10vh;
+  font-size: 1.5rem;
+  color: var(--heart-color);
+  animation: floatUp 15s linear infinite;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
+}
+
+/* ===== Envelope Scene ===== */
+.envelope-scene {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  padding: 2rem;
+  background: radial-gradient(circle at 50% 40%, var(--backdrop) 0%, var(--backdrop-deep) 100%);
+  z-index: 20;
+  opacity: 1;
+  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s, visibility 0.8s 0.3s;
+  animation: sceneIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+html.opened .envelope-scene { opacity: 0; transform: translateY(-30px) scale(0.95); visibility: hidden; }
+@keyframes sceneIn { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.envelope-wrapper {
+  animation: hoverEnv 4s ease-in-out infinite alternate;
+}
+@keyframes hoverEnv {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-12px); }
+}
+
+.envelope {
+  position: relative;
+  width: min(85vw, 360px);
+  aspect-ratio: 1.45 / 1;
+  background: linear-gradient(135deg, var(--envelope), #d4af9f);
+  border-radius: 8px;
+  box-shadow: 0 25px 50px rgba(30, 10, 10, 0.4), inset 0 0 20px rgba(255,255,255,0.2);
+  perspective: 1200px;
+}
+.flap {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  background: linear-gradient(160deg, var(--envelope-flap), var(--envelope));
+  transform-origin: top center;
+  transition: transform 0.9s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.6s ease 0.4s;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+html.opened .flap { transform: rotateX(-180deg); opacity: 0; }
+
+.seal {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -46%);
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: radial-gradient(circle at 30% 30%, var(--gold-light), var(--gold) 60%, var(--gold-deep) 100%);
+  box-shadow: 0 8px 20px rgba(60,30,15,0.5), inset 0 -4px 8px rgba(0,0,0,0.2);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  z-index: 2;
+  animation: sealPulse 2.5s ease-in-out infinite;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.seal:hover { filter: brightness(1.1) contrast(1.1); transform: translate(-50%, -46%) scale(1.05); }
+.seal:active { transform: translate(-50%, -46%) scale(0.92); }
+html.opened .seal { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; animation: none; }
+
+@keyframes sealPulse {
+  0%, 100% { box-shadow: 0 8px 20px rgba(60,30,15,0.5), 0 0 0 0 rgba(197, 160, 105, 0.6); }
+  50% { box-shadow: 0 8px 20px rgba(60,30,15,0.5), 0 0 0 15px rgba(197, 160, 105, 0); }
+}
+
+/* Confetti Burst */
+.sparkle {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: var(--gold-light);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 30;
+}
+
+.envelope-caption { text-align: center; position: relative; z-index: 2; transition: opacity 0.4s ease; }
+.envelope-caption .for { font-family: 'Lora', serif; font-style: italic; font-size: 1.5rem; color: #fff; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.envelope-caption .hint { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); opacity: 0.9; }
+html.opened .envelope-caption { opacity: 0; }
+
+/* ===== Card Scene ===== */
+.card-scene {
+  position: relative;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 6rem 2rem 6rem;
+  opacity: 0;
+  transform: translateY(30px);
+  pointer-events: none;
+  transition: opacity 1.2s ease 0.6s, transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s;
+  z-index: 10;
+}
+html.opened .card-scene { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+.eyebrow {
+  font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase;
+  background: linear-gradient(to right, var(--gold-deep), var(--gold), var(--gold-deep));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700; margin-bottom: 1.2rem; text-align: center;
+}
+.card-scene h1 {
+  font-family: 'Lora', serif; font-weight: 500;
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  line-height: 1.1; color: var(--ink); text-align: center; margin-bottom: 3rem;
+}
+.note { font-family: 'Lora', serif; font-size: clamp(1.1rem, 2.2vw, 1.25rem); line-height: 2; color: var(--ink-soft); }
+.note p { margin-bottom: 1.5rem; }
+.note p:last-child { margin-bottom: 0; }
+
+.list { list-style: none; margin: 3rem 0; padding: 2.25rem 0; position: relative; }
+.list::before, .list::after {
+  content: ''; position: absolute; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.list::before { top: 0; }
+.list::after { bottom: 0; }
+
+.list li { font-family: 'Lora', serif; font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--ink-soft); line-height: 1.9; margin-bottom: 1.2rem; position: relative; padding-left: 1.5rem; }
+.list li::before {
+  content: '✦'; position: absolute; left: 0; top: 0px; color: var(--gold); font-size: 0.9rem;
+}
+.list li:last-child { margin-bottom: 0; }
+.list li span { font-style: normal; font-weight: 700; color: var(--ink); }
+
+.ps { font-family: 'Lora', serif; font-style: italic; font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--ink-soft); margin-top: 1rem; border-left: 3px solid var(--gold-light); padding-left: 1.2rem;}
+.ps b { font-style: normal; font-weight: 700; color: var(--ink); }
+
+.sign-off { margin-top: 4.5rem; text-align: right; }
+.sign-off .name { font-family: 'Lora', serif; font-style: italic; font-weight: 500; font-size: 1.6rem; color: var(--ink); }
+.sign-off .date { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-deep); margin-top: 0.5rem; }
+
+.close-mark { width: 12px; height: 12px; background: var(--gold); transform: rotate(45deg); margin: 5rem auto 0; opacity: 0.6; }
+
+@media(max-width: 480px) {
+  .card-scene { padding: 4.5rem 1.5rem 4.5rem; }
+  .list::before, .list::after { left: 10%; right: 10%; }
+}
+@media(prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="particles" aria-hidden="true"></div>
+
+<section class="envelope-scene">
+  <div class="envelope-wrapper">
+    <div class="envelope">
+      <div class="flap" aria-hidden="true"></div>
+      <button class="seal" id="sealBtn" aria-label="Open your card">C</button>
+    </div>
+  </div>
+  <div class="envelope-caption">
+    <p class="for">for Coco</p>
+    <p class="hint">tap the seal to open</p>
+  </div>
+</section>
+
+<main class="card-scene">
+  <p class="eyebrow">National Girlfriend's Day &middot; August 1</p>
+  <h1>Happy Girlfriend's Day</h1>
+
+  <div class="note">
+    <p>Some days deserve their own name &mdash; and today's yours. Not because you need a holiday to be appreciated, but because I like any excuse to say it properly. So &mdash; a few things, out of many:</p>
+  </div>
+
+  <ul class="list">
+    <li><span>Your laugh</span> &mdash; the kind that sneaks out before the joke's even finished.</li>
+    <li><span>The little things</span> &mdash; how you remember details I didn't think anyone else noticed.</li>
+    <li><span>Your steadiness</span> &mdash; the calm you bring on the days that feel like too much.</li>
+    <li><span>Your curiosity</span> &mdash; always noticing, always asking, always making the world feel a little bigger.</li>
+    <li><span>Ordinary days</span> &mdash; how a plain Tuesday turns into something worth remembering, just because you're in it.</li>
+    <li><span>Simply you</span> &mdash; not who you think you should be. Just you. Somehow, that's everything.</li>
+  </ul>
+
+  <div class="note">
+    <p>Thank you for choosing me, on the easy days and the harder ones. Happy Girlfriend's Day, Coco. I love you, plainly and completely.</p>
+  </div>
+
+  <p class="ps"><b>P.S.</b> &mdash; you're my favourite part of every day, not just this one.</p>
+
+  <div class="sign-off">
+    <p class="name">&mdash; Always, Spandan</p>
+    <p class="date">August 1</p>
+  </div>
+
+  <div class="close-mark" aria-hidden="true"></div>
+</main>
+
+<script>
+(function(){
+  var btn = document.getElementById('sealBtn');
+  var opened = false;
+  
+  // Background Hearts Generator
+  var particleContainer = document.getElementById('particles');
+  var hearts = ['♡', '♥', '✧', '✦'];
+  for(let i=0; i<15; i++){
+    let span = document.createElement('span');
+    span.className = 'heart';
+    span.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+    span.style.left = Math.random() * 100 + 'vw';
+    span.style.animationDelay = (Math.random() * 10) + 's';
+    span.style.animationDuration = (12 + Math.random() * 10) + 's';
+    particleContainer.appendChild(span);
+  }
+
+  // Confetti Burst Function
+  function burstConfetti(e) {
+    const rect = btn.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    for(let i = 0; i < 30; i++) {
+      let spark = document.createElement('div');
+      spark.className = 'sparkle';
+      document.body.appendChild(spark);
+      
+      let angle = Math.random() * Math.PI * 2;
+      let velocity = 50 + Math.random() * 100;
+      let tx = Math.cos(angle) * velocity;
+      let ty = Math.sin(angle) * velocity;
+      
+      spark.style.left = centerX + 'px';
+      spark.style.top = centerY + 'px';
+      
+      spark.animate([
+        { transform: 'translate(0,0) scale(1)', opacity: 1 },
+        { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+      ], {
+        duration: 600 + Math.random() * 400,
+        easing: 'cubic-bezier(0, .9, .57, 1)'
+      }).onfinish = () => spark.remove();
+    }
+  }
+
+  btn.addEventListener('click', function(e){
+    if(opened) return;
+    opened = true;
+    
+    burstConfetti(e);
+    
+    // Slight delay before opening the html to let confetti pop
+    setTimeout(() => {
+      document.documentElement.classList.add('opened');
+    }, 150);
+    
+    // Hide the envelope scene after transition
+    setTimeout(function(){
+      var scene = document.querySelector('.envelope-scene');
+      if(scene) scene.style.display = 'none';
+    }, 1200);
+  });
+})();
+</script>
+</body>
+</html>
